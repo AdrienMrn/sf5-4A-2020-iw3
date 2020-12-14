@@ -8,12 +8,16 @@
         {% block stylesheets %}{% endblock %}
     </head>
     <body>
-        <nav>
+        <nav class="red">
             <div class="nav-wrapper">
                 <a href="#" class="brand-logo">Logo</a>
                 <ul id="nav-mobile" class="right hide-on-med-and-down">
-                    <li><a href="{{ path('default_index') }}">Accueil</a></li>
-                    <li><a href="{{ path('book_index') }}">Livres</a></li>
+                    <li><a href="{{ path('back_book_index') }}">Livres</a></li>
+                    <li><a href="{{ path('back_tag_index') }}">Tags</a></li>
+                    <li><a href="{{ path('front_default_index') }}">Retour au front</a></li>
+                    {% if app.user %}
+                        <li><a href="{{ path('app_logout') }}">Se déconnecter</a></li>
+                    {% endif %}
                 </ul>
             </div>
         </nav>

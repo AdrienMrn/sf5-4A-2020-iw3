@@ -7,6 +7,7 @@ use Doctrine\ORM\Mapping as ORM;
 
 /**
  * @ORM\Entity(repositoryClass=TagRepository::class)
+ * @ORM\Table(schema="biblio")
  */
 class Tag
 {

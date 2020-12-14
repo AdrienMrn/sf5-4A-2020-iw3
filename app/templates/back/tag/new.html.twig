@@ -1,4 +1,4 @@
-{% extends 'base.html.twig' %}
+{% extends 'base_back.html.twig' %}
 
 {% block title %}New Tag{% endblock %}
 
@@ -7,5 +7,5 @@
 
     {{ include('tag/_form.html.twig') }}
 
-    <a href="{{ path('tag_index') }}">back to list</a>
+    <a href="{{ path('back_taindex') }}">back to list</a>
 {% endblock %}

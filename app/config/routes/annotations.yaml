@@ -1,6 +1,16 @@
-controllers:
-    resource: ../../src/Controller/
+controllers_security:
+    resource: ../../src/Controller/Security
     type: annotation
+
+controllers_front:
+    resource: ../../src/Controller/Front
+    type: annotation
+
+controllers_back:
+    resource: ../../src/Controller/Back
+    type: annotation
+    prefix: /admin
+    name_prefix: back_
 
 kernel:
     resource: ../../src/Kernel.php

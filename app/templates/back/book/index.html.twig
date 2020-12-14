@@ -1,10 +1,10 @@
-{% extends 'base.html.twig' %}
+{% extends 'base_back.html.twig' %}
 
 {% block title %}Listing de mes livres{% endblock %}
 
 {% block body %}
     <h1>Livres</h1>
-    <a href="{{ path('book_new') }}" class="btn">Ajouter un livre</a> <br>
+    <a href="{{ path('back_book_new') }}" class="btn">Ajouter un livre</a> <br>
     <br><br>
 
     {% for book in books %}
@@ -12,7 +12,7 @@
         Description : {{ book.description ? book.description|slice(0, 50) : 'NC'}} <br>
         Date de publication : {{ book.publicationDate ? book.publicationDate|date('m/d/Y') : 'NC' }} <br>
         Prix moyen : {{ book.averagePrice ? book.averagePrice : 'NC' }} <br>
-        <a href="{{ path('book_show', {'id': book.id}) }}" class="btn">Voir le livre</a> <br>
+        <a href="{{ path('back_book_show', {'id': book.id}) }}" class="btn">Voir le livre</a> <br>
         <br>
     {% endfor %}
 {% endblock %}

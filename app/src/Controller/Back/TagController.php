@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Controller;
+namespace App\Controller\Back;
 
 use App\Entity\Tag;
 use App\Form\TagType;
@@ -11,22 +11,22 @@ use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 
 /**
- * @Route("/tag")
+ * @Route("/tag", name="tag_")
  */
 class TagController extends AbstractController
 {
     /**
-     * @Route("/", name="tag_index", methods={"GET"})
+     * @Route("/", name="index", methods={"GET"})
      */
     public function index(TagRepository $tagRepository): Response
     {
-        return $this->render('tag/index.html.twig', [
+        return $this->render('back/tag/index.html.twig', [
             'tags' => $tagRepository->findAll(),
         ]);
     }
 
     /**
-     * @Route("/new", name="tag_new", methods={"GET","POST"})
+     * @Route("/new", name="new", methods={"GET","POST"})
      */
     public function new(Request $request): Response
     {
@@ -39,27 +39,27 @@ class TagController extends AbstractController
             $entityManager->persist($tag);
             $entityManager->flush();
 
-            return $this->redirectToRoute('tag_index');
+            return $this->redirectToRoute('back_tag_index');
         }
 
-        return $this->render('tag/new.html.twig', [
+        return $this->render('back/tag/new.html.twig', [
             'tag' => $tag,
             'form' => $form->createView(),
         ]);
     }
 
     /**
-     * @Route("/{id}", name="tag_show", methods={"GET"})
+     * @Route("/{id}", name="show", methods={"GET"})
      */
     public function show(Tag $tag): Response
     {
-        return $this->render('tag/show.html.twig', [
+        return $this->render('back/tag/show.html.twig', [
             'tag' => $tag,
         ]);
     }
 
     /**
-     * @Route("/{id}/edit", name="tag_edit", methods={"GET","POST"})
+     * @Route("/{id}/edit", name="edit", methods={"GET","POST"})
      */
     public function edit(Request $request, Tag $tag): Response
     {
@@ -69,17 +69,17 @@ class TagController extends AbstractController
         if ($form->isSubmitted() && $form->isValid()) {
             $this->getDoctrine()->getManager()->flush();
 
-            return $this->redirectToRoute('tag_index');
+            return $this->redirectToRoute('back_tag_index');
         }
 
-        return $this->render('tag/edit.html.twig', [
+        return $this->render('back/tag/edit.html.twig', [
             'tag' => $tag,
             'form' => $form->createView(),
         ]);
     }
 
     /**
-     * @Route("/{id}", name="tag_delete", methods={"DELETE"})
+     * @Route("/{id}", name="delete", methods={"DELETE"})
      */
     public function delete(Request $request, Tag $tag): Response
     {
@@ -89,6 +89,6 @@ class TagController extends AbstractController
             $entityManager->flush();
         }
 
-        return $this->redirectToRoute('tag_index');
+        return $this->redirectToRoute('back_tag_index');
     }
 }

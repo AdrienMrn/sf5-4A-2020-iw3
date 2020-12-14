@@ -1,12 +1,12 @@
-{% extends 'base.html.twig' %}
+{% extends 'base_back.html.twig' %}
 
 {% block title %}Livre {{ book.name }}{% endblock %}
 
 {% block body %}
     <h1>Livre {{ book.name }}</h1>
 
-    <a href="{{ path('book_edit', {'id': book.id}) }}" class="btn">Editer le livre</a> <br>
-    <a href="{{ path('book_delete', {'id': book.id, 'token': csrf_token('delete_book' ~ book.id)}) }}" class="btn red">Supprimer le livre</a> <br>
+    <a href="{{ path('back_book_edit', {'id': book.id}) }}" class="btn">Editer le livre</a> <br>
+    <a href="{{ path('back_book_delete', {'id': book.id, 'token': csrf_token('delete_book' ~ book.id)}) }}" class="btn red">Supprimer le livre</a> <br>
     <br><br>
 
     Title : {{ book.name|capitalize }} <br>

@@ -23,6 +23,8 @@ services:
 
   php:
     image: ${PHP_IMAGE:-iw/php}
+    depends_on:
+      - db
     build:
       context: ./app
       target: app_php
