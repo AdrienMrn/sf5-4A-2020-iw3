@@ -75,3 +75,17 @@ docker-compose exec php bin/console make:auth
 ```
 docker-compose exec php bin/console security:encode-password 
 ```
+
+## FormType
+https://symfony.com/doc/current/reference/forms/types.html
+
+##### VichUploaderBundle (upload file and img)
+Installation et configuration
+https://symfony.com/doc/2.x/bundles/EasyAdminBundle/integration/vichuploaderbundle.html
+https://github.com/dustin10/VichUploaderBundle/tree/master/docs
+
+Ajout dans les formTypes
+https://github.com/dustin10/VichUploaderBundle/tree/master/docs/form
+
+Récupération des fichiers côté Twig
+https://github.com/dustin10/VichUploaderBundle/blob/master/docs/generating_urls.md

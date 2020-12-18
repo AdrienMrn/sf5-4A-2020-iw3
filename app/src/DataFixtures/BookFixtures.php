@@ -24,6 +24,7 @@ class BookFixtures extends Fixture implements DependentFixtureInterface
                 ->setDescription($faker->paragraph)
                 ->setAveragePrice($faker->numberBetween(5, 66))
                 ->setPublicationDate($faker->dateTimeBetween('-150 years', 'now'))
+                ->setUpdatedAt($faker->dateTime)
                 //->setAuthor($this->getReference(UserFixtures::USER_ADMIN))
                 ->setAuthor($users[array_rand($users)])
             ;
