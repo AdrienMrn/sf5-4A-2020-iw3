@@ -4,6 +4,7 @@ namespace App\Controller\Security;
 
 use App\Entity\User;
 use App\Form\RegisterType;
+use App\Services\MailerService;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
@@ -42,7 +43,7 @@ class SecurityController extends AbstractController
     /**
      * @Route("/register", name="register", methods={"GET", "POST"})
      */
-    public function new(Request $request)
+    public function new(Request $request, MailerService $mailer)
     {
         $user = new User();
         $form = $this->createForm(RegisterType::class, $user);
@@ -53,6 +54,8 @@ class SecurityController extends AbstractController
             $em = $this->getDoctrine()->getManager();
             $em->persist($user);
             $em->flush();
+
+            $mailer->send('amorin@suchweb.fr', 'Enregistrement OK', 'Hey, bienvenue');
 
             return $this->redirectToRoute('app_login');
         }

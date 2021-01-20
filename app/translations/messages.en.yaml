@@ -1,0 +1,5 @@
+logout: logout
+books: books
+tags: tags
+return to env: return to %env%
+email: coucou

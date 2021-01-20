@@ -9,7 +9,11 @@ controllers_front:
 controllers_back:
     resource: ../../src/Controller/Back
     type: annotation
-    prefix: /admin
+    prefix: /{_locale}/admin
+    requirements:
+        _locale: '%app_locales%'
+    defaults:
+        _locale: '%locale%'
     name_prefix: back_
 
 kernel:

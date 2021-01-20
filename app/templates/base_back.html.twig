@@ -4,19 +4,20 @@
         <meta charset="UTF-8">
         <title>{% block title %}Welcome!{% endblock %}</title>
 
-        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/css/materialize.min.css">
-        {% block stylesheets %}{% endblock %}
+        {% block stylesheets %}
+            {{ encore_entry_link_tags('app') }}
+        {% endblock %}
     </head>
     <body>
         <nav class="red">
             <div class="nav-wrapper">
                 <a href="#" class="brand-logo">Logo</a>
                 <ul id="nav-mobile" class="right hide-on-med-and-down">
-                    <li><a href="{{ path('back_book_index') }}">Livres</a></li>
-                    <li><a href="{{ path('back_tag_index') }}">Tags</a></li>
-                    <li><a href="{{ path('front_default_index') }}">Retour au front</a></li>
+                    <li><a href="{{ path('back_book_index') }}">{{ 'books'|trans|capitalize }}</a></li>
+                    <li><a href="{{ path('back_tag_index') }}">{{ 'tags'|trans|capitalize }}</a></li>
+                    <li><a href="{{ path('front_default_index') }}">{{ 'return to env'|trans({'%env%': 'back'})|capitalize }}</a></li>
                     {% if app.user %}
-                        <li><a href="{{ path('app_logout') }}">Se déconnecter</a></li>
+                        <li><a href="{{ path('app_logout') }}">{{ 'logout'|trans|capitalize }}</a></li>
                     {% endif %}
                 </ul>
             </div>
@@ -26,13 +27,22 @@
             {% block body %}{% endblock %}
         </div>
 
-        <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/js/materialize.min.js"></script>
-        {% block javascripts %}{% endblock %}
+        {% block javascripts %}
+            {{ encore_entry_script_tags('app') }}
+        {% endblock %}
+
         <script>
             document.addEventListener('DOMContentLoaded', function() {
-                var elems = document.querySelectorAll('select');
-                var instances = M.FormSelect.init(elems);
+                {% for label, messages in app.flashes %}
+                    {% for message in messages %}
+                        M.toast({html: '{{ message }}', classes: '{{ label }} rounded'});
+                    {% endfor %}
+                {% endfor %}
             });
         </script>
+
+        {% if app.environment == 'dev' %}
+            <script src="http://localhost:35729/livereload.js"></script>
+        {% endif %}
     </body>
 </html>

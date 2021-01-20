@@ -25,21 +25,32 @@ class BookController extends AbstractController
      */
     public function index(BookRepository $bookRepository): Response
     {
+        $this->get('session')->set('_locale', 'fr');
+
         return $this->render('back/book/index.html.twig', [
-            'books' => $bookRepository->findAll()
+            'books' => $bookRepository->findBy([], ['position' => 'ASC'])
         ]);
     }
 
     /**
-     * @param $id
-     *
-     * @Route("/show/{id}", name="show", methods={"GET"})
+     * @Route("/show/{slug}", name="show", methods={"GET"})
      */
     public function show(Book $book): Response
     {
         return $this->render('back/book/show.html.twig', [
             'book' => $book
         ]);
+    }
+
+    /**
+     * @Route("/sortable/{slug}/{sortable}", name="sortable", methods={"GET"}, requirements={"sortable": "up|down"})
+     */
+    public function sortable(Book $book, $sortable): Response
+    {
+        $book->setPosition($sortable == 'up' ? $book->getPosition()+1 : $book->getPosition()-1);
+        $this->getDoctrine()->getManager()->flush();
+
+        return $this->redirectToRoute('back_book_index');
     }
 
     /**
@@ -57,7 +68,9 @@ class BookController extends AbstractController
             $em->persist($book);
             $em->flush();
 
-            return $this->redirectToRoute('back_book_show', ['id' => $book->getId()]);
+            $this->addFlash('blue', 'Création réussie');
+
+            return $this->redirectToRoute('back_book_show', ['slug' => $book->getSlug()]);
         }
 
         return $this->render('back/book/new.html.twig', [
@@ -77,6 +90,8 @@ class BookController extends AbstractController
         {
             $em = $this->getDoctrine()->getManager();
             $em->flush();
+
+            $this->addFlash('blue', 'Modification réussie');
 
             return $this->redirectToRoute('back_book_edit', ['id' => $book->getId()]);
         }
@@ -99,6 +114,8 @@ class BookController extends AbstractController
         $em = $this->getDoctrine()->getManager();
         $em->remove($book);
         $em->flush();
+
+        $this->addFlash('blue', 'Suppression réussie');
 
         return $this->redirectToRoute('back_book_index');
     }

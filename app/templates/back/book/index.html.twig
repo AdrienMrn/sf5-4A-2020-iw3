@@ -7,12 +7,14 @@
     <a href="{{ path('back_book_new') }}" class="btn">Ajouter un livre</a> <br>
     <br><br>
 
-    {% for book in books %}
+    {% for book in books|shuffle %}
         Title : {{ book.name|capitalize }} <br>
         Description : {{ book.description ? book.description|slice(0, 50) : 'NC'}} <br>
         Date de publication : {{ book.publicationDate ? book.publicationDate|date('m/d/Y') : 'NC' }} <br>
         Prix moyen : {{ book.averagePrice ? book.averagePrice : 'NC' }} <br>
-        <a href="{{ path('back_book_show', {'id': book.id}) }}" class="btn">Voir le livre</a> <br>
+        <a href="{{ path('back_book_sortable', {'slug': book.slug, 'sortable': 'up'}) }}" class="btn">Up</a> <br>
+        <a href="{{ path('back_book_sortable', {'slug': book.slug, 'sortable': 'down'}) }}" class="btn">Down</a> <br>
+        <a href="{{ path('back_book_show', {'slug': book.slug}) }}" class="btn">Voir le livre</a> <br>
         <br>
     {% endfor %}
 {% endblock %}
