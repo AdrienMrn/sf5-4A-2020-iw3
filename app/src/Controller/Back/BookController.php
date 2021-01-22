@@ -80,9 +80,12 @@ class BookController extends AbstractController
 
     /**
      * @Route("/edit/{id}", name="edit", methods={"GET", "POST"})
+     * @IsGranted("edit", subject="book")
      */
     public function edit(Book $book, Request $request)
     {
+        //$this->denyAccessUnlessGranted('edit', $book);
+
         $form = $this->createForm(BookType::class, $book);
 
         $form->handleRequest($request);
@@ -104,9 +107,12 @@ class BookController extends AbstractController
 
     /**
      * @Route("/delete/{id}/{token}", name="delete", methods={"GET"})
+     * @IsGranted("delete", subject="book")
      */
     public function delete(Book $book, $token)
     {
+        //$this->denyAccessUnlessGranted('delete', $book);
+
         if (!$this->isCsrfTokenValid('delete_book' . $book->getId(), $token)) {
             throw new Exception('Token CSRF invalid');
         }
