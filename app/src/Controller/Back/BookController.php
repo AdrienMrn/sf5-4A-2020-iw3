@@ -3,6 +3,7 @@
 namespace App\Controller\Back;
 
 use App\Entity\Book;
+use App\Entity\Tag;
 use App\Form\BookType;
 use App\Repository\BookRepository;
 use Doctrine\DBAL\Exception;

@@ -79,7 +79,7 @@ class Book
     private $author;
 
     /**
-     * @ORM\ManyToMany(targetEntity=Tag::class, inversedBy="books")
+     * @ORM\ManyToMany(targetEntity=Tag::class, inversedBy="books", cascade="persist")
      * @ORM\JoinTable(schema="biblio")
      */
     private $tags;

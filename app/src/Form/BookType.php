@@ -9,6 +9,7 @@ use Symfony\Bridge\Doctrine\Form\Type\EntityType;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\CallbackTransformer;
 use Symfony\Component\Form\Extension\Core\Type\ChoiceType;
+use Symfony\Component\Form\Extension\Core\Type\CollectionType;
 use Symfony\Component\Form\Extension\Core\Type\DateTimeType;
 use Symfony\Component\Form\Extension\Core\Type\FileType;
 use Symfony\Component\Form\Extension\Core\Type\IntegerType;
@@ -42,10 +43,10 @@ class BookType extends AbstractType
                 'class' => User::class,
                 'choice_label' => 'email'
             ])
-            ->add('tags', EntityType::class, [
-                'class' => Tag::class,
-                'choice_label' => 'name',
-                'multiple' => true
+            ->add('tags', CollectionType::class, [
+                'entry_type' => TagType::class,
+                'entry_options' => ['label' => false],
+                'allow_add' => true,
             ])
             ->add('imageFile', VichImageType::class, [
                 'required' => false,
