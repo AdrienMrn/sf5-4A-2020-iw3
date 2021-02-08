@@ -8,6 +8,7 @@ use App\Entity\User;
 use Symfony\Bridge\Doctrine\Form\Type\EntityType;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\CallbackTransformer;
+use Symfony\Component\Form\Extension\Core\Type\CheckboxType;
 use Symfony\Component\Form\Extension\Core\Type\ChoiceType;
 use Symfony\Component\Form\Extension\Core\Type\CollectionType;
 use Symfony\Component\Form\Extension\Core\Type\DateTimeType;
@@ -26,11 +27,6 @@ class BookType extends AbstractType
         $builder
             ->add('name', TextType::class, [
                 'label' => 'Nom'
-            ])
-            ->add('publicationDate', DateTimeType::class, [
-                'label' => 'Date de publication',
-                'date_widget' => 'single_text',
-                'time_widget' => 'single_text'
             ])
             ->add('description', TextareaType::class, [
                 'label' => 'Description'
@@ -61,6 +57,25 @@ class BookType extends AbstractType
                     'Femme' => 'f'
                 ]
             ])
+
+            ->add('publicationDate', CheckboxType::class, [
+                'label' => 'Publier ce livre ? ',
+                'required' => false
+            ])
+        ;
+
+        $builder->get('publicationDate')
+            ->addModelTransformer(new CallbackTransformer(
+                // To Form
+                function ($publicationDateToBool) {
+                    return $publicationDateToBool ? true : false;
+                },
+                // To Entity
+                function ($publicationDateToDateTime) {
+                    // transform the string back to an array
+                    return $publicationDateToDateTime ? new \DateTime() : null;
+                }
+            ))
         ;
     }
 

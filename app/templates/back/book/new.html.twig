@@ -9,6 +9,13 @@
     <ul class="tags" data-prototype="{{ form_widget(form.tags.vars.prototype)|e('html_attr') }}"></ul>
     <button type="button" class="add_item_link" data-collection-holder-class="tags">Add a tag</button>
 
+    <p>
+        <label>
+            {{ form_widget(form.publicationDate) }}
+            <span>Publier ce livre ?</span>
+        </label>
+    </p>
+
     {{ form_rest(form) }}
     <button type="submit" class="btn">Créer</button>
     {{ form_end(form) }}

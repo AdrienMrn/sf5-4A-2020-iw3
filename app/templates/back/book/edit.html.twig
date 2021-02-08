@@ -6,6 +6,14 @@
     <h1>Edition du livre {{ book.name }}</h1>
 
     {{ form_start(form) }}
+
+    <p>
+        <label>
+            {{ form_widget(form.publicationDate) }}
+            <span>Publier ce livre ?</span>
+        </label>
+    </p>
+
         {{ form_rest(form) }}
         <button type="submit" class="btn">Editer</button>
     {{ form_end(form) }}
